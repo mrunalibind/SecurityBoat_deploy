@@ -1,11 +1,13 @@
-// Backend deployment Link : https://agreeable-buckle-foal.cyclic.app
+// Backend deployment Link : https://wandering-tick-suit.cyclic.app/
 
 let express=require("express");
+let cors=require("cors");
 const { connection } = require("./db");
 let cookie=require("cookie-parser");
 const { userRouter } = require("./routes/user_route");
 const { taskRouter } = require("./routes/task_route");
 let app=express();
+app.use(cors());
 require("dotenv").config();
 let port=process.env.port||8050;
 app.use(express.json());
