@@ -8,12 +8,9 @@ const { userRouter } = require("./routes/user_route");
 const { taskRouter } = require("./routes/task_route");
 let app=express();
 
-
-app.use(cors({ origin: 'http://127.0.0.1:5500' }));
-require("dotenv").config();
-
 app.use(express.json());
 app.use(cookie());
+app.use(cors());
 app.use("/user",userRouter);
 app.use("/task",taskRouter);
 
@@ -28,5 +25,5 @@ app.listen(8050,async()=>{
     } catch (error) {
         console.log(error);
     }
-    console.log("Server is running on port",process.env.port)
+    console.log("Server is running on port",8050)
 })
