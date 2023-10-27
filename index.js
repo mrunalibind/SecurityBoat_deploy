@@ -7,6 +7,13 @@ let cookie=require("cookie-parser");
 const { userRouter } = require("./routes/user_route");
 const { taskRouter } = require("./routes/task_route");
 let app=express();
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    // Other CORS headers if needed
+    next();
+});
+
 app.use(cors());
 require("dotenv").config();
 let port=process.env.port||8050;
