@@ -9,7 +9,7 @@ const { taskRouter } = require("./routes/task_route");
 let app=express();
 
 
-app.use(cors());
+app.use(cors({ origin: 'http://127.0.0.1:5500' }));
 require("dotenv").config();
 
 app.use(express.json());
