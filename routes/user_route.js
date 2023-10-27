@@ -42,7 +42,7 @@ userRouter.post("/login",async(req,res)=>{
                 if(result){
                     bcrypt.compare(password, user.password, function(err, result) {
                         if(result){
-                            var token = jwt.sign({ user }, process.env.token);
+                            var token = jwt.sign({ user }, "1234");
                             res.cookie("token",token);
                             res.status(200).send({msg:"Login Successfull",token});
                             
