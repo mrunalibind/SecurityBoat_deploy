@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.use(cors());
 require("dotenv").config();
-let port=process.env.port||8050;
+
 app.use(express.json());
 app.use(cookie());
 app.use("/user",userRouter);
@@ -26,7 +26,7 @@ app.get("/",(req,res)=>{
     res.end("Hello, it's working");
 })
 
-app.listen(port,async()=>{
+app.listen(8050,async()=>{
     try {
         await connection;
         console.log("Connected to mongoDB");
