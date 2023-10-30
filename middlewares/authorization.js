@@ -7,7 +7,7 @@ let authorization=(role)=>{
         // console.log(role);
         let token=req.cookies.token;
         let {id}=req.params;
-        jwt.verify(token, process.env.token, async function(err, decoded) {
+        jwt.verify(token, "1234", async function(err, decoded) {
             if(decoded){                    
                 if(decoded.user.role=="Admin"){
                     next();
