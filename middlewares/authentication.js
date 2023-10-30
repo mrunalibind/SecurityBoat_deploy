@@ -10,9 +10,10 @@ let authentication=async(req,res,next)=>{
     // if(isBlacklist){
     //     return res.status(400).send({msg:"Already logout, Login Again"})
     // }
-    jwt.verify(token, process.env.token, function(err, decoded) {
+    jwt.verify(token, "1234", function(err, decoded) {
         if(decoded){
             req.body.userId=decoded.user._id;
+            req.body.team=decoded.user.team;
             next();
         }
         else{
