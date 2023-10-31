@@ -40,17 +40,11 @@ userRouter.post("/login",async(req,res)=>{
         else{
             bcrypt.compare(password, user.password, function(err, result) {
                 if(result){
-                    bcrypt.compare(password, user.password, function(err, result) {
-                        if(result){
-                            var token = jwt.sign({ user }, "1234");
-                            res.cookie("token",token);
-                            res.status(200).send({msg:"Login Successfull",token});
-                            
-                        }
-                        else{
-                            res.status(400).send({msg:"Wrong credential"});
-                        }
-                    });
+                    var token = jwt.sign({ user }, "secretKey");
+                    res.cookie("token",token);
+                    
+                    res.status(200).send({msg:"Login Successfull",token});
+                    
                 }
                 else{
                     res.status(400).send({msg:"Wrong credential"});

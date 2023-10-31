@@ -1,16 +1,17 @@
 // Backend deployment Link : https://wandering-tick-suit.cyclic.app/
 
 let express=require("express");
+let app=express();
 let cors=require("cors");
+app.use(cors());
 const { connection } = require("./db");
 let cookie=require("cookie-parser");
 const { userRouter } = require("./routes/user_route");
 const { taskRouter } = require("./routes/task_route");
-let app=express();
 
-app.use(express.json());
 app.use(cookie());
-app.use(cors());
+app.use(express.json());
+
 app.use("/user",userRouter);
 app.use("/task",taskRouter);
 

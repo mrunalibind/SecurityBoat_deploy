@@ -2,12 +2,13 @@
 let jwt=require("jsonwebtoken");
 const { TaskModel } = require("../models/task_model");
 
-let authorization=(role)=>{
+let authorization=()=>{
     return async(req,res,next)=>{
-        // console.log(role);
+        
         let token=req.cookies.token;
         let {id}=req.params;
-        jwt.verify(token, "1234", async function(err, decoded) {
+        jwt.verify(token, "secretKey", async function(err, decoded) {
+            console.log(decoded)
             if(decoded){                    
                 if(decoded.user.role=="Admin"){
                     next();

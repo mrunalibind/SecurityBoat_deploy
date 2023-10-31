@@ -1,16 +1,19 @@
 // Authentication Midlleware, to access the task routes, user should be logged in
 
 let jwt=require("jsonwebtoken");
-const { BlacklistModel } = require("../models/blacklist_model");
+// const { BlacklistModel } = require("../models/blacklist_model");
 
 let authentication=async(req,res,next)=>{
     
     let token=req.cookies.token;
+    console.log(req.cookies.token);
+    console.log(token,"token");
     // let isBlacklist=await BlacklistModel.findOne({token});
     // if(isBlacklist){
     //     return res.status(400).send({msg:"Already logout, Login Again"})
     // }
-    jwt.verify(token, "1234", function(err, decoded) {
+    jwt.verify(token, "secretKey", function(err, decoded) {
+        console.log(decoded)
         if(decoded){
             req.body.userId=decoded.user._id;
             req.body.team=decoded.user.team;
