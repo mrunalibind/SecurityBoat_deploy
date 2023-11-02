@@ -5,15 +5,15 @@ let jwt=require("jsonwebtoken");
 
 let authentication=async(req,res,next)=>{
     
-    let token=req.cookies.token;
-    console.log(req.cookies.token);
-    console.log(token,"token");
+    let token= req.header('Authorization').split(" ")[1];
+    // console.log(req.cookies.token);
+    // console.log(token,"token");
     // let isBlacklist=await BlacklistModel.findOne({token});
-    // if(isBlacklist){
-    //     return res.status(400).send({msg:"Already logout, Login Again"})
-    // }
+    if(!token){
+        return res.status(400).send({msg:"Access Denied, Login First"})
+    }
     jwt.verify(token, "secretKey", function(err, decoded) {
-        console.log(decoded)
+        // console.log(decoded)
         if(decoded){
             req.body.userId=decoded.user._id;
             req.body.team=decoded.user.team;
