@@ -5,7 +5,7 @@ const { TaskModel } = require("../models/task_model");
 let authorization=()=>{
     return async(req,res,next)=>{
         
-        let token=req.cookies.token;
+        let token=req.header('Authorization').split(" ")[1] | req.cookies.token;
         let {id}=req.params;
         jwt.verify(token, "secretKey", async function(err, decoded) {
             console.log(decoded)
