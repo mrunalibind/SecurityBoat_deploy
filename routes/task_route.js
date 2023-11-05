@@ -58,7 +58,7 @@ taskRouter.delete("/remove/:id",authentication,authorization(["User","Admin"]),a
 taskRouter.get('/pagination', authentication,async(req, res) => {
     try {
         let {team}=req.body;
-        // console.log(team);
+        console.log(team);
         const page = parseInt(req.query.page) || 1;
         const perPage = 5;
         const skip = (page - 1) * perPage;
@@ -70,12 +70,12 @@ taskRouter.get('/pagination', authentication,async(req, res) => {
         const items = await TaskModel.find({team})
           .skip(skip)
           .limit(perPage);
-        //   console.log(items);
+        let loginUserID=req.body.userId;
     
-        res.status(200).send({ page, items, totalPages });
+        res.status(200).send({ page, items, totalPages, loginUserID });
       } catch (err) {
         console.error(err);
-        res.status(500).send({ error: 'Internal Server Error' });
+        res.status(500).send({ error: err.message });
       }
   });
 
