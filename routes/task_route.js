@@ -54,5 +54,30 @@ taskRouter.delete("/remove/:id",authentication,authorization(["User","Admin"]),a
     }
 })
 
+// Pagination: Display 5 task per page
+taskRouter.get('/pagination', authentication,async(req, res) => {
+    try {
+        let {team}=req.body;
+        // console.log(team);
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 5;
+        const skip = (page - 1) * perPage;
+
+        const totalCount = await TaskModel.countDocuments({team});
+
+        const totalPages = Math.ceil(totalCount / perPage);
+    
+        const items = await TaskModel.find({team})
+          .skip(skip)
+          .limit(perPage);
+        //   console.log(items);
+    
+        res.status(200).send({ page, items, totalPages });
+      } catch (err) {
+        console.error(err);
+        res.status(500).send({ error: 'Internal Server Error' });
+      }
+  });
+
 
 module.exports={taskRouter};
